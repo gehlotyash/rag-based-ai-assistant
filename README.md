@@ -1,6 +1,3 @@
-# rag-based-ai-assistant
-Production-oriented RAG system using embeddings, vector search, and FastAPI inference APIs for semantic search and context-aware LLM responses
-
 # RAG-Based AI Assistant
 Production-oriented Retrieval-Augmented Generation system built for 
 semantic search and context-aware LLM responses across enterprise datasets.
