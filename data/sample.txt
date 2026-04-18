@@ -1,0 +1,4 @@
+Artificial intelligence is transforming industries worldwide.
+FastAPI is a modern Python web framework for building APIs.
+RAG systems combine retrieval with language model generation.
+The Anthropic Claude API provides powerful language model capabilities.
