@@ -1,27 +1,31 @@
-import anthropic
-from app.config import settings
+from transformers import pipeline
 from typing import List
+import logging
 
-client = anthropic.Anthropic(api_key=settings.anthropic_api_key)
+logger = logging.getLogger(__name__)
+
+_pipe = None
+
+
+def get_pipeline():
+    global _pipe
+    if _pipe is None:
+        logger.info("Loading local model...")
+        _pipe = pipeline(
+            "text-generation",
+            model="TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+            max_new_tokens=256,
+            do_sample=False,
+        )
+        logger.info("Local model loaded.")
+    return _pipe
 
 
 def generate_answer(question: str, context_chunks: List[str]) -> str:
-    context = "\n\n---\n\n".join(context_chunks)
-
-    prompt = f"""You are a helpful assistant. Answer the question using
-ONLY the context provided below. If the answer is not in the context,
-say "I don't have enough information to answer this."
-
-Context:
-{context}
-
-Question: {question}
-
-Answer:"""
-
-    message = client.messages.create(
-        model=settings.model_name,
-        max_tokens=1024,
-        messages=[{"role": "user", "content": prompt}],
-    )
-    return message.content[0].text
+    context = " ".join(context_chunks)
+    prompt = f"Answer the question based only on this context.\nContext: {context}\nQuestion: {question}\nAnswer:"
+    result = get_pipeline()(prompt)
+    generated = result[0]["generated_text"]
+    if "Answer:" in generated:
+        return generated.split("Answer:")[-1].strip()
+    return generated.strip()

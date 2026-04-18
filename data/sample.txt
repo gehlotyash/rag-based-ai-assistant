@@ -1,4 +1,5 @@
 Artificial intelligence is transforming industries worldwide.
-FastAPI is a modern Python web framework for building APIs.
-RAG systems combine retrieval with language model generation.
-The Anthropic Claude API provides powerful language model capabilities.
+RAG stands for Retrieval Augmented Generation. It combines document retrieval with language model generation.
+FastAPI is a modern Python web framework for building high-performance APIs.
+The Anthropic Claude API provides powerful language model capabilities for building AI applications.
+Vector databases store embeddings and enable semantic search over large document collections.
